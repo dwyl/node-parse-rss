@@ -1,5 +1,6 @@
-var feed = require('feed-read');
-var url = "feed://feeds.bbci.co.uk/news/rss.xml";
+var feed = require('feed-read');                  // require the module
+var url = "http://feeds.bbci.co.uk/news/rss.xml"; // an example RSS feed
+
 feed(url, function(err, articles) {
   if (err) throw err;
   console.log(articles[0]);
