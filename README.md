@@ -26,6 +26,7 @@ npm install
 
 From the original code on StackOverflow Maksim is using the following 
 *non-core* node modules: 
+
 1. **async**: https://github.com/caolan/async
 2. **request**: https://github.com/mikeal/request
 3. **feed-read**: https://github.com/sentientwaffle/feed-read
@@ -41,3 +42,13 @@ only **5 watchers** at the time of writing (*not v. popular*)
 and it was *last updated* **2 years ago** ... (might not be compatible with 
 the latest version of node.js or its dependencies!)
 but it *does* have **unit tests** which is a *good sign* so lets *try* it!
+
+## Read the Readme & Unit Tests in feed-read Module 
+
+Often developers neglect to document their work adequately in the README.md 
+If this is the case, the best way of learning how to use a new module is to
+read through the unit tests in the ./**test** folder in the case of feed-read
+
+https://github.com/sentientwaffle/feed-read/blob/master/test/index.test.js
+
+
