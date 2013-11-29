@@ -51,4 +51,17 @@ read through the unit tests in the ./**test** folder in the case of feed-read
 
 https://github.com/sentientwaffle/feed-read/blob/master/test/index.test.js
 
+The tests are very clear. And the module is well written.
+
+> I sent a clarifying question on LinkedIn:
+
+- - -
+Hi Maksim! 
+Great question! (useful for other people learning node.js asynchronous callbacks) 
+
+Just to clarify, when you say you "can't understand how to display the parsed result" do you want to combine the results of multiple RSS feed requests into a single http response to your clients? Or just want help styling the output into html? 
+
+Also, are you deliberately trying to keep it simple by only using http module? 
+(e.g. are you open to using framework like connect to take care of error handling and html template rendering?)
+- - -
 
