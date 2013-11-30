@@ -75,6 +75,22 @@ Install the modules:
 npm install
 ```
 
+## Parsing Multiple RSS Feeds Without Async
+
+The async module is the hammer of the node.js world.
+I see **async.parallel** used *everywhere* to *force* asynchronous requests
+to wait until all responses have returned before performing a final action.
+
+There's another (better?) way of doing it... but it requires more work.
+
+### Create an Array of RSS Feed URls
+
+
+### Create a Write Stream to Client
+
+
+### Pump Each Result to Client as it Arrives
+
 
 ## Initial Overview
 
@@ -130,4 +146,6 @@ async.parallel({
   // whatever you want to do with them.
 });
 ```
-This answer requires the Async Module.
+This answer requires the Async Module...
+
+What if we instead try and write one ***without*** relying on async (for once)?
