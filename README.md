@@ -88,11 +88,16 @@ There's another (better?) way of doing it... but it requires more work.
 
 ### Create a Write Stream to Client
 
+http://nodejs.org/api/stream.html#stream_readable_stream
+http://nodejs.org/api/http.html#http_http_clientresponse
 
 ### Pump Each Result to Client as it Arrives
 
+Example of this: https://gist.github.com/isaacs/723163
 
-## Initial Overview
+
+
+## Background
 
 From the original code on StackOverflow Maksim is using the following 
 *non-core* node modules: 
