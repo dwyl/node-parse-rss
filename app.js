@@ -49,3 +49,5 @@ function onRssFetched(err, articles) {
     }
     console.log(html.join(""));
 }
+
+console.log("RSS Server listening on http://localhost:9000");

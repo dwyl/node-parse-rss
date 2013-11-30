@@ -3,7 +3,9 @@
   "description": "RSS Feed Reader in Node.js",
   "author": "https://github.com/nelsonic",
   "dependencies": {
-    "feed-read": "*"
+    "feed-read": "*",
+    "async":"*",
+    "request":"*"
   },
   "devDependencies": {
     "mocha": "*"
