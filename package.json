@@ -4,8 +4,6 @@
   "author": "https://github.com/nelsonic",
   "dependencies": {
     "feed-read": "*",
-    "async":"*",
-    "request":"*"
   },
   "devDependencies": {
     "mocha": "*"
