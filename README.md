@@ -75,26 +75,111 @@ Install the modules:
 npm install
 ```
 
-## Parsing Multiple RSS Feeds Without Async
+## Parsing Multiple RSS Feeds *Without* Async
 
-The async module is the hammer of the node.js world.
+The async module is the *hammer* of the node.js world.
+(read: [Law of the Instrument](http://en.wikipedia.org/wiki/Law_of_the_instrument))
 I see **async.parallel** used *everywhere* to *force* asynchronous requests
 to wait until all responses have returned before performing a final action.
 
-There's another (better?) way of doing it... but it requires more work.
+There's another (better?) way of doing it... but it requires *more work*.
 
 ### Create an Array of RSS Feed URls
 
+Rather than having a separate **var**iable for *each* RSS feed,
+we put them in an array. This allows us to itterate over the urls array
+and fetch each RSS feed. It makes it easy to add/remove feeds without
+having to touch the application logic.
 
-### Create a Write Stream to Client
+```javascript
+urls = [
+  "http://feeds.bbci.co.uk/news/rss.xml",
+  "http://news.sky.com/feeds/rss/home.xml"
+]; // Example RSS Feeds
+```
+### Create an Http Write Stream to Client
 
-http://nodejs.org/api/stream.html#stream_readable_stream
-http://nodejs.org/api/http.html#http_http_clientresponse
+Because the node.js **http** (core) module supports **streams** *natively*,
+we can stream the news articles to the client individually:
 
-### Pump Each Result to Client as it Arrives
+```javascript
+http.createServer(function (req, res) { 
+    // send basic http headers to client
+    res.writeHead(200, {
+        "Content-Type": "text/html",
+        "Transfer-Encoding": "chunked"
+    });
 
-Example of this: https://gist.github.com/isaacs/723163
+    // setup simple html page:
+    res.write("<html>\n<head>\n<title>RSS Feeds</title>\n</head>\n<body>");
 
+    // loop through our list of RSS feed urls
+    for (var j = 0; j < urls.length; j++) {
+
+        // fetch rss feed for the url:
+        feed(urls[j], function(err, articles) {
+
+            // loop through the list of articles returned
+            for (var i = 0; i < articles.length; i++) {
+
+                // stream article title (and what ever else you want) to client
+                res.write("<h3>"+articles[i].title +"</h3>"); 
+
+                // check we have reached the end of our list of articles & urls
+                if( i === articles.length-1 && j === urls.length-1) {
+                    res.end("</body>\n</html>"); // end http response
+                } // else still have rss urls to check
+            } //  end inner for loop
+        }); // end call to feed (feed-read) method
+    } // end urls for loop
+}).listen(5000);
+```
+
+putting it all together we get:
+
+```javascript
+var feed = require('feed-read'),  // require the feed-read module
+    http = require("http"),
+    urls = [
+        "http://feeds.bbci.co.uk/news/rss.xml",
+        "http://news.sky.com/feeds/rss/home.xml",
+        "http://www.techmeme.com/feed.xml"
+    ]; // Example RSS Feeds
+
+http.createServer(function (req, res) { 
+    // send basic http headers to client
+    res.writeHead(200, {
+        "Content-Type": "text/html",
+        "Transfer-Encoding": "chunked"
+    });
+
+    // setup simple html page:
+    res.write("<html>\n<head>\n<title>RSS Feeds</title>\n</head>\n<body>");
+
+    // loop through our list of RSS feed urls
+    for (var j = 0; j < urls.length; j++) {
+
+        // fetch rss feed for the url:
+        feed(urls[j], function(err, articles) {
+
+            // loop through the list of articles returned
+            for (var i = 0; i < articles.length; i++) {
+
+                // stream article title (and what ever else you want) to client
+                res.write("<h3>"+articles[i].title +"</h3>"); 
+
+                // check we have reached the end of our list of articles & urls
+                if( i === articles.length-1 && j === urls.length-1) {
+                    res.end("</body>\n</html>"); // end http response
+                } // else still have rss urls to check
+            } //  end inner for loop
+        }); // end call to feed (feed-read) method
+    } // end urls for loop
+}).listen(5000);
+```
+
+> Let me know your thoughts on this! I'd love to hear if you have a <br />
+> **better** way of doing it! :-)
 
 
 ## Background
@@ -128,7 +213,7 @@ https://github.com/sentientwaffle/feed-read/blob/master/test/index.test.js
 
 The tests are very clear. And the module is well written.
 
-> I sent a clarifying question on LinkedIn: http://lnkd.in/dY2Xtf6
+> I sent a clarifying question on LinkedIn: http://lnkd.in/dY2Xtf6 <br />
 > Meanwhile @GoloRoden gave an answer on Stack: http://stackoverflow.com/a/20273797/1148249
 
 ```javascript
@@ -151,6 +236,12 @@ async.parallel({
   // whatever you want to do with them.
 });
 ```
-This answer requires the Async Module...
+This answer requires the **Async** Module...
 
 What if we instead try and write one ***without*** relying on async (for once)?
+
+## Notes
+
+- Node.js Streams Handbook: https://github.com/substack/stream-handbook
+- http://nodejs.org/api/stream.html#stream_readable_stream
+- http://nodejs.org/api/http.html#http_http_clientresponse
