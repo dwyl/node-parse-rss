@@ -5,7 +5,34 @@ A quick node.js RSS feed parser.
 
 Original **quest**ion:
 http://stackoverflow.com/questions/20177259/requesting-rss-feeds-from-two-web-sites-in-node-js
-Saw this question on Stack Overflow and decided it merited a quick answer.
+Saw this question on Stack Overflow and decided it merited a *quick* answer.
+
+## Try it yourself
+
+Clone/copy this repo to your local machine:
+```sh
+git clone https://github.com/nelsonic/node-parse-rss.git
+```
+Install the modules:
+```sh
+npm install
+```
+Run the node script
+```sh
+node article-stream.js
+```
+
+Point your browser at: [**http://localhost:5000**](http://localhost:5000)
+
+You will expect to see something like:
+![RSS News Stream](http://i.imgur.com/3rmmsb2.png "RSS News Stream")
+
+- - - 
+
+# Solution
+
+## The Original Question on StackOverflow (async)
+
 
 ```javascript
 var feed = require('feed-read');
@@ -64,25 +91,15 @@ function onRssFetched(err, articles) {
 The author also posted it on LinkedIn:
 http://www.linkedin.com/groups/Parse-RSS-feeds-using-Nodejs-2906459.S.5811745652475990020
 
-## Try it yourself
-
-Clone/copy this repo to your local machine:
-```sh
-git clone https://github.com/nelsonic/node-parse-rss.git
-```
-Install the modules:
-```sh
-npm install
-```
 
 ## Parsing Multiple RSS Feeds *Without* Async
 
 The async module is the *hammer* of the node.js world.
-(read: [Law of the Instrument](http://en.wikipedia.org/wiki/Law_of_the_instrument))
+(read: [Law of the Instrument](http://en.wikipedia.org/wiki/Law_of_the_instrument)) <br />
 I see **async.parallel** used *everywhere* to *force* asynchronous requests
-to wait until all responses have returned before performing a final action.
+to ***wait*** until all responses have returned before performing a final action.
 
-There's another (better?) way of doing it... but it requires *more work*.
+There's another (**better**?) way of doing it... but it requires *more work*.
 
 ### Create an Array of RSS Feed URls
 
@@ -238,7 +255,7 @@ async.parallel({
 ```
 This answer requires the **Async** Module...
 
-What if we instead try and write one ***without*** relying on async (for once)?
+**What if** we instead try and write one ***without*** relying on async (for once)?
 
 ## Notes
 
