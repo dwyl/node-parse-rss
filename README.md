@@ -27,6 +27,10 @@ Point your browser at: [**http://localhost:5000**](http://localhost:5000)
 You will expect to see something like:
 ![RSS News Stream](http://i.imgur.com/3rmmsb2.png "RSS News Stream")
 
+*Yes*, this is not beautiful. But the question was specific to the technical 
+side of how to parse the RSS feeds not a *full* (attractive) solution.
+That is an "*exercise left to the reader*"... :-)
+
 - - - 
 
 # Solution
