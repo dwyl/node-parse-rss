@@ -8,40 +8,43 @@ var feed = require('feed-read'),  // require the feed-read module
         "http://www.techmeme.com/feed.xml"
     ]; // Example RSS Feeds
 
+// load css styles
 var css = '<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.0/css/foundation.min.css"> ';
 css = css + '<style type="text/css">' +require('fs').readFileSync('./style.css').toString() + '</style>'
 
 http.createServer(function (req, res) {
-    // send basic http headers to client
-    res.writeHead(200, {
-        "Content-Type": "text/html",
-        "Transfer-Encoding": "chunked"
-    });
-    // setup simple html page:
-    res.write("<html>\n<head>\n<title>RSS Feeds - Stream</title>\n" +css +"</head>\n<body>");
+  // send basic http headers to client
+  res.writeHead(200, {
+      "Content-Type": "text/html",
+      "Transfer-Encoding": "chunked"
+  });
+  // setup simple html page:
+  res.write("<html>\n<head>\n<title>RSS Feeds - Stream</title>\n" +css +"</head>\n<body>");
 
-    // loop through our list of RSS feed urls
-    for (var j = 0; j < urls.length; j++) {
+  // loop through our list of RSS feed urls
+  for (var j = 0; j < urls.length; j++) {
 
-        // fetch rss feed for the url:
-        feed(urls[j], function(err, articles) {
+    // fetch rss feed for the url:
+    feed(urls[j], function(err, articles) {
 
-            // loop through the list of articles returned
-            for (var i = 0; i < articles.length; i++) {
+      // loop through the list of articles returned
+      for (var i = 0; i < articles.length; i++) {
 
-                // stream article title (and what ever else you want) to client
-                displayArticle(res, articles[i]);
+        // stream article title (and what ever else you want) to client
+        displayArticle(res, articles[i]);
 
-                // check we have reached the end of our list of articles & urls
-                if( i === articles.length-1 && j === urls.length-1) {
-                    res.end("</body>\n</html>"); // end http response
-                } // else still have rss urls to check
-            } //  end inner for loop
-        }); // end call to feed (feed-read) method
-    } // end urls for loop
-    setTimeout(function() {
-      res.end("</body>\n</html>"); // end http response
-    }, 6000);
+        // check we have reached the end of our list of articles & urls
+        if( i === articles.length-1 && j === urls.length-1) {
+          res.end("</body>\n</html>"); // end http response
+        } // else still have rss urls to check
+      } //  end inner for loop
+    }); // end call to feed (feed-read) method
+  } // end urls for loop
+
+  setTimeout(function() {
+    res.end("</body>\n</html>"); // end http response
+  }, 4000);
+
 }).listen(port);
 console.log("HTTP Listening on: http://localhost:"+port);
 
