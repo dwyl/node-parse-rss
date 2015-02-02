@@ -5,7 +5,9 @@
   "dependencies": {
     "feed-read": "*"
   },
-  "engine": "node >= 0.10.x",
+  "engines": {
+    "node": "0.10.x"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/nelsonic/node-parse-rss.git"
