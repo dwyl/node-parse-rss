@@ -9,6 +9,11 @@ Saw this question on Stack Overflow and decided it merited a *quick* answer.
 
 ## Try it yourself
 
+> Visit: https://news-stream.herokuapp.com
+
+
+### DIY
+
 Clone/copy this repo to your local machine:
 ```sh
 git clone https://github.com/nelsonic/node-parse-rss.git
@@ -27,11 +32,11 @@ Point your browser at: [**http://localhost:5000**](http://localhost:5000)
 You will expect to see something like:
 ![RSS News Stream](http://i.imgur.com/3rmmsb2.png "RSS News Stream")
 
-*Yes*, this is not beautiful. But the question was specific to the technical 
+*Yes*, this is not beautiful. But the question was specific to the technical
 side of how to parse the RSS feeds not a *full* (attractive) solution.
 That is an "*exercise left to the reader*"... :-)
 
-- - - 
+- - -
 
 # Solution
 
@@ -124,7 +129,7 @@ Because the node.js **http** (core) module supports **streams** *natively*,
 we can stream the news articles to the client individually:
 
 ```javascript
-http.createServer(function (req, res) { 
+http.createServer(function (req, res) {
     // send basic http headers to client
     res.writeHead(200, {
         "Content-Type": "text/html",
@@ -144,7 +149,7 @@ http.createServer(function (req, res) {
             for (var i = 0; i < articles.length; i++) {
 
                 // stream article title (and what ever else you want) to client
-                res.write("<h3>"+articles[i].title +"</h3>"); 
+                res.write("<h3>"+articles[i].title +"</h3>");
 
                 // check we have reached the end of our list of articles & urls
                 if( i === articles.length-1 && j === urls.length-1) {
@@ -167,7 +172,7 @@ var feed = require('feed-read'),  // require the feed-read module
         "http://www.techmeme.com/feed.xml"
     ]; // Example RSS Feeds
 
-http.createServer(function (req, res) { 
+http.createServer(function (req, res) {
     // send basic http headers to client
     res.writeHead(200, {
         "Content-Type": "text/html",
@@ -187,7 +192,7 @@ http.createServer(function (req, res) {
             for (var i = 0; i < articles.length; i++) {
 
                 // stream article title (and what ever else you want) to client
-                res.write("<h3>"+articles[i].title +"</h3>"); 
+                res.write("<h3>"+articles[i].title +"</h3>");
 
                 // check we have reached the end of our list of articles & urls
                 if( i === articles.length-1 && j === urls.length-1) {
@@ -205,8 +210,8 @@ http.createServer(function (req, res) {
 
 ## Background
 
-From the original code on StackOverflow Maksim is using the following 
-*non-core* node modules: 
+From the original code on StackOverflow Maksim is using the following
+*non-core* node modules:
 
 1. **async**: https://github.com/caolan/async
 2. **request**: https://github.com/mikeal/request
@@ -220,7 +225,7 @@ feed-read on the other hand ...
 ![feed-read module page](http://i.imgur.com/Y3oqs0x.png "feed-read module")
 
 only **5 watchers** at the time of writing (*not v. popular*)
-and it was *last updated* **2 years ago** ... (might not be compatible with 
+and it was *last updated* **2 years ago** ... (might not be compatible with
 the latest version of node.js or its dependencies!)
 but it *does* have **unit tests** which is a *good sign* so lets *try* it!
 
