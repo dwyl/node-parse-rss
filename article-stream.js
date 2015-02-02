@@ -8,7 +8,7 @@ var feed = require('feed-read'),  // require the feed-read module
         "http://www.techmeme.com/feed.xml"
     ]; // Example RSS Feeds
 
-var css = '<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.0/css/foundation.min.css"> ';
+var css = '<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.0/css/foundation.min.css"> \n'; 
 css = css + '<style type="text/css">' +require('fs').readFileSync('./style.css').toString() + '</style>'
 
 http.createServer(function (req, res) {
@@ -39,6 +39,9 @@ http.createServer(function (req, res) {
             } //  end inner for loop
         }); // end call to feed (feed-read) method
     } // end urls for loop
+    setTimeout(function() {
+      res.end("</body>\n</html>"); // end http response
+    }, 6000);
 }).listen(port);
 console.log("HTTP Listening on: http://localhost:"+port);
 
